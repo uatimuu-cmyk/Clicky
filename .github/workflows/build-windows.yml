@@ -2,12 +2,13 @@
 name: Build Clicky for Windows
 
 on:
-  workflow_dispatch:
   push:
     branches: [master]
+    tags: ["v*"]
+  workflow_dispatch:
 
 permissions:
-  contents: read
+  contents: write
 
 jobs:
   build-windows:
@@ -31,8 +32,16 @@ jobs:
         run: |
           pyinstaller --noconfirm --clean --onefile --windowed --name Clicky --icon assets/clicky-icon.ico autoclicker.py
 
-      - name: Upload Windows executable
+      - name: Upload build artifact
         uses: actions/upload-artifact@v4
         with:
           name: Clicky-Windows
           path: dist/Clicky.exe
+
+      - name: Publish GitHub Release
+        if: startsWith(github.ref, 'refs/tags/v')
+        uses: softprops/action-gh-release@v3
+        with:
+          name: Clicky ${{ github.ref_name }}
+          generate_release_notes: true
+          files: dist/Clicky.exe
