@@ -1,0 +1,14 @@
+[Desktop Entry]
+Type=Application
+Version=1.5
+Name=Clicky
+GenericName=Autoclicker
+Comment=Customisable autoclicker
+Exec="@EXEC@"
+TryExec=@EXEC@
+Icon=clicky
+Terminal=false
+Categories=Utility;
+Keywords=autoclicker;auto clicker;clicker;mouse;click;macro;
+StartupNotify=false
+StartupWMClass=clicky
